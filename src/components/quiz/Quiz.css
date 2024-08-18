@@ -75,3 +75,7 @@
   background: #ffebeb;
   border-color: #ff4a4a;
 }
+
+.loading {
+  position: fixed;
+}

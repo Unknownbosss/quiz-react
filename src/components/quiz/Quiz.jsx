@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import "./Quiz.css";
 import { useQuiz } from "../../hooks/useQuiz";
 import useData from "../../hooks/useData";
-
+import logo from "../../assets/logo.jpg";
 function Quiz() {
   const [index, setIndex] = useState(0);
   const [questions, setQuestions] = useState({});
@@ -13,13 +13,14 @@ function Quiz() {
   );
   const [result, setResult] = useState(false);
 
-  const { questionLength, data } = useData();
+  const { loading, questionLength, data } = useData();
 
+  const { question, answer, answerIndex, options } = questions;
   useEffect(() => {
     const quiz = useQuiz(data, index);
     setQuestions(quiz);
-  }, [index]);
-  const { question, answer, answerIndex, options } = questions;
+  }, [index, loading]);
+
   const opt1 = useRef(null);
   const opt2 = useRef(null);
   const opt3 = useRef(null);
@@ -70,7 +71,48 @@ function Quiz() {
     setResult(false);
   };
 
-  if (!question) return null;
+  if (!question)
+    return (
+      <div
+        className="loading-overlay"
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          backgroundColor: "rgba(255, 255, 255, 0.8)",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <img
+          src={logo}
+          alt="loading"
+          style={{
+            maxWidth: "200px",
+            maxHeight: "200px",
+            animation: "pulse 2s infinite",
+          }}
+        />
+        <style>
+          {`
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.2);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+  `}
+        </style>
+      </div>
+    );
   return (
     <div className="container">
       <div className="title">
@@ -83,10 +125,10 @@ function Quiz() {
       ) : (
         <>
           <h2>
-            {index + 1}. What is {question.name}'s real name
+            {index + 1}. What is {question?.name}'s real name
           </h2>
           <ul>
-            {options.map((option, i) => (
+            {options?.map((option, i) => (
               <li key={i} onClick={(e) => checkAns(e)} ref={options_array[i]}>
                 {option}
               </li>
