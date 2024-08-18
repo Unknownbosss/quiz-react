@@ -145,7 +145,7 @@ function Quiz() {
           <h2>
             You scored {score} out of {questionLength}
           </h2>
-          <button onClick={handleReset}>Reset</button>
+          <button onClick={handleReset}>Play Again</button>
         </>
       ) : (
         <></>
