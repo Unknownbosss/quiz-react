@@ -76,3 +76,8 @@
   border-color: #ff4a4a;
 }
 
+@media (width > 510px) {
+  .container {
+    width: 540px;
+  }
+}
