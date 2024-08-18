@@ -1,5 +1,5 @@
 .container {
-  width: 450px;
+  width: 300px;
   margin: auto;
   margin-top: 30px;
   background: white;
@@ -8,7 +8,7 @@
   flex-direction: column;
   gap: 20px;
   border-radius: 10px;
-  padding: 40px 50px;
+  padding: 30px 40px;
 }
 
 .container .title {
@@ -38,11 +38,11 @@
   margin-bottom: 20px;
   font-size: 20px;
   cursor: pointer;
-  transition: border-width .2s ease;
+  transition: border-width 0.2s ease;
 }
 
 .container ul li:hover {
-  border-width: 2px ;
+  border-width: 2px;
 }
 
 .container button {
@@ -54,11 +54,11 @@
   font-size: 25px;
   font-weight: 500;
   cursor: pointer;
-  transition: opacity .3s ease;
+  transition: opacity 0.3s ease;
 }
 
 .container button:hover {
-  opacity: .7;
+  opacity: 0.7;
 }
 
 .container .index {
@@ -76,6 +76,3 @@
   border-color: #ff4a4a;
 }
 
-.loading {
-  position: fixed;
-}
