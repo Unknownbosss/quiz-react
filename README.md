@@ -10,6 +10,7 @@ This quiz game allows users to test their knowledge on various Avengers by answe
 
 - Randomized questions for each playthrough
 - Score tracking and leaderboard
+- Timer to add excitement
 
 ## Contributing
 
