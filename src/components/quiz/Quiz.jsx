@@ -4,14 +4,33 @@ import { useQuiz } from "../../hooks/useQuiz";
 import useData from "../../hooks/useData";
 import Loading from "../Loading";
 function Quiz() {
+  const [isPlaying, setIsPlaying] = useState(false);
   const [index, setIndex] = useState(0);
+  const [timer, setTimer] = useState(5);
   const [questions, setQuestions] = useState({});
   const [lock, setLock] = useState(false);
   const [score, setScore] = useState(0);
+  const [result, setResult] = useState(false);
   const [highScore, setHighScore] = useState(
     () => parseInt(localStorage.getItem("highScore")) || 0
   );
-  const [result, setResult] = useState(false);
+
+  let intervalID;
+
+  useEffect(() => {
+    console.log("timer");
+    if (isPlaying) {
+      intervalID = setInterval(() => {
+        setTimer((prev) => prev - 1);
+      }, 1000);
+      if (timer < 0) {
+        handleReset();
+      }
+      
+    }
+
+    return () => clearInterval(intervalID);
+  }, [timer, isPlaying]);
 
   const { loading, questionLength, data } = useData();
 
@@ -47,28 +66,36 @@ function Quiz() {
     }
   };
 
+  const resetOption = () => {
+    options_array.map((option) => {
+      option.current.classList.remove("wrong");
+      option.current.classList.remove("correct");
+      return null;
+    });
+  };
+
   const handleNext = () => {
     if (lock) {
       if (index + 1 === questionLength) {
+        setIsPlaying(false);
         setResult(true);
         saveHIghScore();
         return;
       }
       setIndex((prev) => prev + 1);
       setLock(false);
-      options_array.map((option) => {
-        option.current.classList.remove("wrong");
-        option.current.classList.remove("correct");
-        return null;
-      });
+      resetOption();
     }
   };
 
   const handleReset = () => {
+    setIsPlaying(!isPlaying);
+    setTimer(5)
     setIndex(0);
     setScore(0);
     setLock(false);
     setResult(false);
+    if (!options_array) resetOption();
   };
 
   if (!question) return <Loading />;
@@ -76,17 +103,11 @@ function Quiz() {
     <div className="container">
       <div className="title">
         <h1>Quiz App</h1>
-        {result ? <h2>HighScore: {highScore}</h2> : <h2>30</h2>}
+        {result ? <h2>HighScore: {highScore}</h2> : <h2>{timer}</h2>}
       </div>
       <hr />
-      {result ? (
-        <>
-          <h2>
-            You scored {score} out of {questionLength}
-          </h2>
-          <button onClick={handleReset}>Play Again</button>
-        </>
-      ) : (
+
+      {isPlaying ? (
         <>
           <h2>
             {index + 1}. What is {question?.name}'s real name
@@ -105,6 +126,24 @@ function Quiz() {
           <div className="index">
             {index + 1} of {questionLength} questions
           </div>
+        </>
+      ) : (
+        <>
+          {index + 1 === questionLength ? (
+            <h2>
+              You scored {score} out of {questionLength}
+            </h2>
+          ) : (
+            <h2>HighScore: {highScore}</h2>
+          )}
+
+          <button
+            onClick={() => {
+              handleReset();
+            }}
+          >
+            Start
+          </button>
         </>
       )}
     </div>
