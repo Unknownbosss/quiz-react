@@ -129,7 +129,7 @@ function Quiz() {
             ))}
           </ul>
           <div className="button-container">
-            <button onClick={() =>handleReset('new')}>Give Up</button>
+            <button onClick={() => handleReset("new")}>Give Up</button>
             <button onClick={handleNext}>Next</button>
           </div>
           <div className="index">
@@ -159,7 +159,7 @@ function Quiz() {
                 handleReset("new");
               }}
             >
-              Play Agin
+              Play Again
             </button>
           )}
         </>
