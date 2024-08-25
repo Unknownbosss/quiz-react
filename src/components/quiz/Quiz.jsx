@@ -148,10 +148,10 @@ function Quiz() {
           {newGame ? (
             <button
               onClick={() => {
-                handleReset("old");
+                handleReset();
               }}
             >
-              Start 1
+              Start
             </button>
           ) : (
             <button
