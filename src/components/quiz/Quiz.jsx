@@ -6,7 +6,7 @@ import Loading from "../Loading";
 function Quiz() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [index, setIndex] = useState(0);
-  const [timer, setTimer] = useState(45);
+  const [timer, setTimer] = useState(30);
   const [questions, setQuestions] = useState({});
   const [lock, setLock] = useState(false);
   const [score, setScore] = useState(0);
@@ -90,7 +90,7 @@ function Quiz() {
   const reset = () => {
     setIsPlaying(!isPlaying);
     setNewGame(false);
-    setTimer(9);
+    setTimer(30);
     setIndex(0);
     saveHIghScore();
     setLock(false);
