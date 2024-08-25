@@ -15,10 +15,10 @@ function Quiz() {
     () => parseInt(localStorage.getItem("highScore")) || 0
   );
 
+  const gameFinished = useRef(false);
   let intervalID;
 
   useEffect(() => {
-    console.log("timer");
     if (isPlaying) {
       intervalID = setInterval(() => {
         setTimer((prev) => prev - 1);
@@ -76,8 +76,9 @@ function Quiz() {
   const handleNext = () => {
     if (lock) {
       if (index + 1 === questionLength) {
-        handleReset();
         saveHIghScore();
+        gameFinished.current = true;
+        handleReset();
         return;
       }
       setIndex((prev) => prev + 1);
@@ -86,14 +87,24 @@ function Quiz() {
     }
   };
 
-  const handleReset = () => {
+  const reset = () => {
     setIsPlaying(!isPlaying);
     setNewGame(false);
-    setTimer(45);
+    setTimer(9);
     setIndex(0);
-    setScore(0);
+    saveHIghScore();
     setLock(false);
     if (!options_array) resetOption();
+    gameFinished.current = false;
+  };
+
+  const handleReset = (type) => {
+    if (type === "new") {
+      setScore(0);
+      reset();
+    } else {
+      reset();
+    }
   };
 
   if (!question) return <Loading />;
@@ -118,7 +129,7 @@ function Quiz() {
             ))}
           </ul>
           <div className="button-container">
-            <button onClick={handleReset}>Give Up</button>
+            <button onClick={() =>handleReset('new')}>Give Up</button>
             <button onClick={handleNext}>Next</button>
           </div>
           <div className="index">
@@ -134,14 +145,23 @@ function Quiz() {
               You scored {score} out of {questionLength}{" "}
             </h2>
           )}
-
-          <button
-            onClick={() => {
-              handleReset();
-            }}
-          >
-            Start
-          </button>
+          {newGame ? (
+            <button
+              onClick={() => {
+                handleReset("old");
+              }}
+            >
+              Start 1
+            </button>
+          ) : (
+            <button
+              onClick={() => {
+                handleReset("new");
+              }}
+            >
+              Play Agin
+            </button>
+          )}
         </>
       )}
     </div>
