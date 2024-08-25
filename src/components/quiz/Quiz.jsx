@@ -6,11 +6,11 @@ import Loading from "../Loading";
 function Quiz() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [index, setIndex] = useState(0);
-  const [timer, setTimer] = useState(5);
+  const [timer, setTimer] = useState(45);
   const [questions, setQuestions] = useState({});
   const [lock, setLock] = useState(false);
   const [score, setScore] = useState(0);
-  const [result, setResult] = useState(false);
+  const [newGame, setNewGame] = useState(true);
   const [highScore, setHighScore] = useState(
     () => parseInt(localStorage.getItem("highScore")) || 0
   );
@@ -26,7 +26,6 @@ function Quiz() {
       if (timer < 0) {
         handleReset();
       }
-      
     }
 
     return () => clearInterval(intervalID);
@@ -77,8 +76,7 @@ function Quiz() {
   const handleNext = () => {
     if (lock) {
       if (index + 1 === questionLength) {
-        setIsPlaying(false);
-        setResult(true);
+        handleReset();
         saveHIghScore();
         return;
       }
@@ -90,11 +88,11 @@ function Quiz() {
 
   const handleReset = () => {
     setIsPlaying(!isPlaying);
-    setTimer(5)
+    setNewGame(false);
+    setTimer(45);
     setIndex(0);
     setScore(0);
     setLock(false);
-    setResult(false);
     if (!options_array) resetOption();
   };
 
@@ -103,7 +101,7 @@ function Quiz() {
     <div className="container">
       <div className="title">
         <h1>Quiz App</h1>
-        {result ? <h2>HighScore: {highScore}</h2> : <h2>{timer}</h2>}
+        {isPlaying ? <h2>{timer}</h2> : <h2>HighScore: {highScore}</h2>}
       </div>
       <hr />
 
@@ -129,12 +127,12 @@ function Quiz() {
         </>
       ) : (
         <>
-          {index + 1 === questionLength ? (
-            <h2>
-              You scored {score} out of {questionLength}
-            </h2>
+          {newGame ? (
+            <h2>You have {timer}s</h2>
           ) : (
-            <h2>HighScore: {highScore}</h2>
+            <h2>
+              You scored {score} out of {questionLength}{" "}
+            </h2>
           )}
 
           <button
