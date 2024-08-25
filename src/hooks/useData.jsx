@@ -19,7 +19,7 @@ function useData() {
       realName: "Peter Parker",
     },
   ]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [questionLength, setQuestionLength] = useState(0);
   // useEffect(() => {
   //   const url = "https://spbooks.github.io/jsninja2/questions.json";
