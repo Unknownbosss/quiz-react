@@ -47,7 +47,7 @@
 
 .container button {
   margin: auto;
-  width: 200px;
+  width: 100px;
   height: 55px;
   background: #553f9a;
   color: white;
@@ -55,6 +55,10 @@
   font-weight: 500;
   cursor: pointer;
   transition: opacity 0.3s ease;
+}
+
+.button-container {
+  display: flex;
 }
 
 .container button:hover {
@@ -79,5 +83,9 @@
 @media (width > 510px) {
   .container {
     width: 540px;
+  }
+
+  .container button {
+    width: 200px;
   }
 }

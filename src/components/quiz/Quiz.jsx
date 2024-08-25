@@ -134,7 +134,10 @@ function Quiz() {
               </li>
             ))}
           </ul>
-          <button onClick={handleNext}>Next</button>
+          <div className="button-container">
+            <button onClick={handleReset}>Give Up</button>
+            <button onClick={handleNext}>Next</button>
+          </div>
           <div className="index">
             {index + 1} of {questionLength} questions
           </div>

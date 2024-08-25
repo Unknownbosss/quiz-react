@@ -1,22 +1,39 @@
 import React, { useEffect, useState } from "react";
 
 function useData() {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState([
+    {
+      name: "Superman",
+      realName: "Clarke Kent",
+    },
+    {
+      name: "Batman",
+      realName: "Bruce Wayne",
+    },
+    {
+      name: "Wonder Woman",
+      realName: "Dianna Prince",
+    },
+    {
+      name: "Spider-Man",
+      realName: "Peter Parker",
+    },
+  ]);
   const [loading, setLoading] = useState(false);
   const [questionLength, setQuestionLength] = useState(0);
-  useEffect(() => {
-    const url = "https://spbooks.github.io/jsninja2/questions.json";
-    setLoading(true);
-    fetch(url)
-      .then((response) => response.json())
-      .then((quiz) => {
-        setData(quiz.questions);
-        setQuestionLength(quiz.questions.length);
-      })
-      .finally(() => setLoading(false));
-  }, []);
+  // useEffect(() => {
+  //   const url = "https://spbooks.github.io/jsninja2/questions.json";
+  //   setLoading(true);
+  //   fetch(url)
+  //     .then((response) => response.json())
+  //     .then((quiz) => {
+  //       setData(quiz.questions);
+  // setQuestionLength(quiz.questions.length);
+  //     })
+  //     .finally(() => setLoading(false));
+  // }, []);
 
-  return { data, loading, questionLength };
+  return { data, loading, questionLength: data.length };
 }
 
 export default useData;
