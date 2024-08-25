@@ -76,11 +76,16 @@ function Quiz() {
     <div className="container">
       <div className="title">
         <h1>Quiz App</h1>
-        <h2>HighScore: {highScore}</h2>
+        {result ? <h2>HighScore: {highScore}</h2> : <h2>30</h2>}
       </div>
       <hr />
       {result ? (
-        <></>
+        <>
+          <h2>
+            You scored {score} out of {questionLength}
+          </h2>
+          <button onClick={handleReset}>Play Again</button>
+        </>
       ) : (
         <>
           <h2>
@@ -101,16 +106,6 @@ function Quiz() {
             {index + 1} of {questionLength} questions
           </div>
         </>
-      )}
-      {result ? (
-        <>
-          <h2>
-            You scored {score} out of {questionLength}
-          </h2>
-          <button onClick={handleReset}>Play Again</button>
-        </>
-      ) : (
-        <></>
       )}
     </div>
   );
