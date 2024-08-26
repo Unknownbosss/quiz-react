@@ -24,19 +24,19 @@
 }
 
 .container h2 {
-  font-size: 23px;
+  font-size: 16px;
   font-weight: 500;
 }
 
 .container ul li {
   display: flex;
   align-items: center;
-  height: 50px;
-  padding-left: 15px;
+  height: auto;
+  padding: 5px;
   border: 1px solid #686868;
   border-radius: 8px;
   margin-bottom: 20px;
-  font-size: 20px;
+  font-size: 14px;
   cursor: pointer;
   transition: border-width 0.2s ease;
 }
@@ -45,20 +45,24 @@
   border-width: 2px;
 }
 
+.button-container {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
 .container button {
-  margin: auto;
-  width: 100px;
-  height: 55px;
+  padding: 20px;
   background: #553f9a;
+  border: none;
+  text-wrap: nowrap;
   color: white;
-  font-size: 25px;
+  font-size: 14px;
   font-weight: 500;
   cursor: pointer;
   transition: opacity 0.3s ease;
-}
-
-.button-container {
-  display: flex;
+  flex: 1;
 }
 
 .container button:hover {
@@ -67,7 +71,7 @@
 
 .container .index {
   margin: auto;
-  font-size: 15px;
+  font-size: 14px;
 }
 
 .container .correct {
@@ -83,9 +87,5 @@
 @media (width > 510px) {
   .container {
     width: 540px;
-  }
-
-  .container button {
-    width: 200px;
   }
 }

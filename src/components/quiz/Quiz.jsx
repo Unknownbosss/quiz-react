@@ -151,7 +151,7 @@ function Quiz() {
                 handleReset("old");
               }}
             >
-              Start 1
+              Start
             </button>
           ) : (
             <button
