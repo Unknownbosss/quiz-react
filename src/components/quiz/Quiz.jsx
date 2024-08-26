@@ -148,7 +148,7 @@ function Quiz() {
           {newGame ? (
             <button
               onClick={() => {
-                handleReset("old");
+                handleReset();
               }}
             >
               Start
